@@ -8,7 +8,6 @@ import org.lionsoul.ip2region.DbMakerConfigException;
 import org.lionsoul.ip2region.DbSearcher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -26,7 +25,7 @@ public class IpAddress {
     private static DbSearcher searcher = null;
 
     static {
-        String path = "E:\\project\\mblog\\src\\main\\resources\\ip2region.db";
+        String path = "E:\\project\\blog\\src\\main\\resources\\ip2region.db";
         try {
             searcher = new DbSearcher(new DbConfig(), path);
         } catch (FileNotFoundException e) {
