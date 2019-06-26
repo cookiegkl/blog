@@ -10,10 +10,13 @@ import org.springframework.web.servlet.config.annotation.*;
 import java.util.List;
 
 /**
- * @author langhsu
+ * 视图配置
+ *
+ * @author Alex
+ * @date 2019/06/26
  */
 @Configuration
-public class WebMvcConfiguration implements WebMvcConfigurer {
+public class WebMvcConfiguration extends WebMvcConfigurerAdapter implements WebMvcConfigurer {
 
     @Autowired
     private BaseInterceptor baseInterceptor;
@@ -31,23 +34,17 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(baseInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/dist/**", "/store/**", "/static/**");
+        registry.addInterceptor(baseInterceptor).addPathPatterns("/**").excludePathPatterns("/dist/**", "/store/**", "/static/**");
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String location = "file:///" + siteOptions.getLocation();
-        registry.addResourceHandler("/dist/**")
-                .addResourceLocations("classpath:/static/dist/");
-        registry.addResourceHandler("/theme/*/dist/**")
-                .addResourceLocations("classpath:/templates/")
-                .addResourceLocations(location + "/storage/templates/");
-        registry.addResourceHandler("/storage/avatars/**")
-                .addResourceLocations(location + "/storage/avatars/");
-        registry.addResourceHandler("/storage/thumbnails/**")
-                .addResourceLocations(location + "/storage/thumbnails/");
+        registry.addResourceHandler("/dist/**").addResourceLocations("classpath:/static/dist/");
+        registry.addResourceHandler("/theme/*/dist/**").addResourceLocations("classpath:/templates/").addResourceLocations(location + "/storage/templates/");
+        registry.addResourceHandler("/storage/avatars/**").addResourceLocations(location + "/storage/avatars/");
+        registry.addResourceHandler("/storage/thumbnails/**").addResourceLocations(location + "/storage/thumbnails/");
+        super.addResourceHandlers(registry);
     }
 
     @Override
