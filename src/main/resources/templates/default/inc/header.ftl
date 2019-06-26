@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <button id="ajax_login_submit" class="btn btn-success btn-block btn-sm" type="button">
-                            登录 Use it
+                            登录
                         </button>
                     </div>
                     <div class="form-group">

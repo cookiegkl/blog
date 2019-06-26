@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">
-                            登录 Use it
+                            登录
                         </button>
                     </div>
                     <@controls name="register">

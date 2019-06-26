@@ -78,7 +78,7 @@ site:
     options:
         theme: classic
         site_logo: /dist/images/logo/logo.png
-        site_favicon: /dist/images/logo/m.png
+        site_favicon: /dist/images/logo/favicon.png
         storage_max_width: 800
         storage_limit_size: 2
         editor: markdown
