@@ -127,7 +127,7 @@
             <!-- To the right -->
             <div class="pull-right hidden-xs">${site.version}</div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2019 <a href="#">mtons</a>.</strong> All rights reserved.
+            <strong>Copyright &copy; 2019 <a href="#">怀念时光</a>.</strong> All rights reserved.
         </footer>
     </body>
     </html>

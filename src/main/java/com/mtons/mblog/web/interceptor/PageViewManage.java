@@ -48,10 +48,6 @@ public class PageViewManage implements InitializingBean {
 
     private static final int BROWSER_NAME_LENGTH = 90;
 
-    private static final String INTRANET = "0:0:0:0:0:0:0:1";
-
-    private static final String LOCAL = "127.0.0.1";
-
     @PreDestroy
     public void destroy() {
         threadActivity = false;
@@ -86,8 +82,13 @@ public class PageViewManage implements InitializingBean {
      * @return
      */
     public void addPV(HttpServletRequest request) {
+        List<String> whiteList = new ArrayList<>();
+        whiteList.add("0:0:0:0:0:0:0:1");
+        whiteList.add("127.0.0.1");
+        whiteList.add("118.184.5.17");
+        whiteList.add("117.136.45.153");
         String ipAddress = IpAddress.getClientIpAddress(request);
-        if (INTRANET.equals(ipAddress) || LOCAL.equals(ipAddress)) {
+        if (whiteList.contains(ipAddress)) {
             return;
         }
         View pv = new View();
