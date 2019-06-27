@@ -6,7 +6,6 @@
 .idea
 
 indexes
-storage
 
 # project settings
 *.project
@@ -20,5 +19,3 @@ target
 rebel.xml
 
 *.db
-
-!/src/main/java/com/mtons/mblog/base/storage/
