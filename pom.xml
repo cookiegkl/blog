@@ -262,8 +262,6 @@
 			<groupId>org.lionsoul</groupId>
 			<artifactId>ip2region</artifactId>
 			<version>1.6</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/ip2region-1.6.jar</systemPath>
 			<exclusions>
 				<exclusion>
 					<groupId>*</groupId>
