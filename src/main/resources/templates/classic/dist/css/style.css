@@ -1719,6 +1719,9 @@ div.mce-toolbar-grp {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    position:absolute;
+    bottom:0;
+    width: 100%;
 }
 
 .footer a {
