@@ -90,6 +90,7 @@ public class PageViewManage implements InitializingBean {
         whiteList.add("112.4.55.172");
         whiteList.add("112.4.43.156");
         whiteList.add("112.4.40.160");
+        whiteList.add("112.4.54.105");
         String ipAddress = IpAddress.getClientIpAddress(request);
         if (whiteList.contains(ipAddress)) {
             return;
