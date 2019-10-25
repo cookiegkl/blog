@@ -308,8 +308,8 @@ abbr[data-original-title], abbr[title] {
 }
 
 .site-header .navbar-button > li > a.login:hover, .site-header .navbar-button > li > a.signup:hover {
-    color: #171717!important;
-    background: #fff!important;
+    color: #171717 !important;
+    background: #fff !important;
 }
 
 .site-header .navbar-button > li > a.user {
@@ -1719,8 +1719,8 @@ abbr[data-original-title], abbr[title] {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    position:absolute;
-    bottom:0;
+    position: fixed;
+    bottom: 0px;
     width: 100%;
 }
 
