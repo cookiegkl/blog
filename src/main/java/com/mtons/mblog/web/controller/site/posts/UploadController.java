@@ -17,7 +17,6 @@ import com.mtons.mblog.base.utils.FileUtils;
 import com.mtons.mblog.config.SmmsResult;
 import com.mtons.mblog.modules.entity.BlogUpload;
 import com.mtons.mblog.modules.service.BlogUploadService;
-import com.mtons.mblog.modules.service.IViewService;
 import com.mtons.mblog.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -95,8 +94,6 @@ public class UploadController extends BaseController {
     @ResponseBody
     public UploadResult upload(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request) {
         UploadResult result = new UploadResult();
-        String crop = request.getParameter("crop");
-        int size = ServletRequestUtils.getIntParameter(request, "size", siteOptions.getIntegerValue(Consts.STORAGE_MAX_WIDTH));
         // 检查空
         if (null == multipartFile || multipartFile.isEmpty()) {
             return result.error(errorInfo.get("NOFILE"));
@@ -123,28 +120,38 @@ public class UploadController extends BaseController {
             result.setName(data.getFilename());
             result.setPath(data.getUrl());
             result.setSize(data.getSize());
-            BlogUpload upload = new BlogUpload();
-            upload.setFileId(data.getFile_id());
-            upload.setFileName(data.getFilename());
-            upload.setWidth(data.getWidth());
-            upload.setHeight(data.getHeight());
-            upload.setStoreName(data.getStorename());
-            upload.setSize(data.getSize());
-            upload.setPath(data.getPath());
-            upload.setHash(data.getHash());
-            upload.setUrl(data.getUrl());
-            upload.setDeletePath(data.getDelete());
-            upload.setPage(data.getPage());
-            upload.setRequestId(smmsResult.getRequestId());
-            upload.setCreateTime(new Date());
-            upload.setLastUpdateTime(new Date());
-            upload.setIsDelete(false);
-            uploadService.addSmms(upload);
+            savePic(smmsResult, data);
         } catch (Exception e) {
             result.error(errorInfo.get("UNKNOWN"));
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 保存图片
+     *
+     * @param smmsResult 图床返回
+     * @param data       图片信息
+     */
+    private void savePic(SmmsResult smmsResult, SmmsResult.Data data) {
+        BlogUpload upload = new BlogUpload();
+        upload.setFileId(data.getFile_id());
+        upload.setFileName(data.getFilename());
+        upload.setWidth(data.getWidth());
+        upload.setHeight(data.getHeight());
+        upload.setStoreName(data.getStorename());
+        upload.setSize(data.getSize());
+        upload.setPath(data.getPath());
+        upload.setHash(data.getHash());
+        upload.setUrl(data.getUrl());
+        upload.setDeletePath(data.getDelete());
+        upload.setPage(data.getPage());
+        upload.setRequestId(smmsResult.getRequestId());
+        upload.setCreateTime(new Date());
+        upload.setLastUpdateTime(new Date());
+        upload.setIsDelete(false);
+        uploadService.addSmms(upload);
     }
 
     @PostMapping("/uploadXXX")
