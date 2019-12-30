@@ -45,8 +45,10 @@ import java.util.Date;
  */
 @Slf4j
 public class BaseController {
+
     @Autowired
     protected StorageFactory storageFactory;
+
     @Autowired
     protected SiteOptions siteOptions;
 

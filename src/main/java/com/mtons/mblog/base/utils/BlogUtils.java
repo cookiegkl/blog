@@ -53,21 +53,16 @@ public class BlogUtils {
         if (StringUtils.isBlank(location)) {
             return Result.failure("site.location未配置");
         }
-
         Path root = Paths.get(location, "storage", "templates");
         if (Files.notExists(root)) {
             Files.createDirectories(root);
         }
         Path zip = root.resolve(file.getOriginalFilename());
-
         Path target = root.resolve(FileKit.getFilename(Objects.requireNonNull(file.getOriginalFilename())));
-
         if (Files.exists(target)) {
             return Result.failure("该主题已存在");
         }
-
         Files.createDirectory(target);
-
         FileUtils.writeByteArrayToFile(zip.toFile(), file.getBytes());
         ZipUtils.unzip(zip, target);
         Files.delete(zip);

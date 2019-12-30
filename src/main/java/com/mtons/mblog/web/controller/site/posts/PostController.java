@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/post")
 public class PostController extends BaseController {
+
 	@Autowired
 	private PostService postService;
+
 	@Autowired
 	private ChannelService channelService;
 
