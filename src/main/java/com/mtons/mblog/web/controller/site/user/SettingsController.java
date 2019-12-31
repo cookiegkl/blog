@@ -2,10 +2,10 @@ package com.mtons.mblog.web.controller.site.user;
 
 import com.mtons.mblog.base.lang.Result;
 import com.mtons.mblog.base.lang.Consts;
-import com.mtons.mblog.base.utils.FileKit;
-import com.mtons.mblog.base.utils.FilePathUtils;
-import com.mtons.mblog.base.utils.ImageUtils;
+import com.mtons.mblog.base.utils.*;
+import com.mtons.mblog.config.SmmsResult;
 import com.mtons.mblog.modules.data.AccountProfile;
+import com.mtons.mblog.modules.data.UploadResult;
 import com.mtons.mblog.modules.data.UserVO;
 import com.mtons.mblog.modules.service.SecurityCodeService;
 import com.mtons.mblog.modules.service.UserService;
@@ -19,7 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.io.File;
 
 /**
  * @author : landy
@@ -119,35 +119,29 @@ public class SettingsController extends BaseController {
 
     @PostMapping("/avatar")
     @ResponseBody
-    public UploadController.UploadResult updateAvatar(@RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-        UploadController.UploadResult result = new UploadController.UploadResult();
+    public UploadResult updateAvatar(@RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+        UploadResult result = new UploadResult();
         AccountProfile profile = getProfile();
-
         // 检查空
-        if (null == file || file.isEmpty()) {
+        if (null == multipartFile || multipartFile.isEmpty()) {
             return result.error(UploadController.errorInfo.get("NOFILE"));
         }
-
-        String fileName = file.getOriginalFilename();
-
+        String fileName = multipartFile.getOriginalFilename();
         // 检查类型
         if (!FileKit.checkFileType(fileName)) {
             return result.error(UploadController.errorInfo.get("TYPE"));
         }
-
         // 保存图片
         try {
-            String ava100 = Consts.avatarPath + getAvaPath(profile.getId(), 240);
-            byte[] bytes = ImageUtils.screenshot(file, 240, 240);
-            String path = storageFactory.get().writeToStore(bytes, ava100);
-
-            AccountProfile user = userService.updateAvatar(profile.getId(), path);
+            File file = FileUtils.multipartFileToFile(multipartFile);
+            SmmsResult smmsResult = SmmsUtil.executeImport(file);
+            String url = smmsResult.getData().getUrl();
+            AccountProfile user = userService.updateAvatar(profile.getId(), url);
             putProfile(user);
-
             result.ok(UploadController.errorInfo.get("SUCCESS"));
             result.setName(fileName);
-            result.setPath(path);
-            result.setSize(file.getSize());
+            result.setPath(url);
+            result.setSize(multipartFile.getSize());
         } catch (Exception e) {
             result.error(UploadController.errorInfo.get("UNKNOWN"));
         }
