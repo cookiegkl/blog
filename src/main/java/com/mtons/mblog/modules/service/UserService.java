@@ -22,100 +22,115 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author langhsu
+ * 用户服务层
  *
+ * @author Alex
+ * @date 2020/04/17
  */
 @CacheConfig(cacheNames = Consts.CACHE_USER)
 public interface UserService {
-	/**
-	 * 分页查询
-	 * @param pageable
-	 * @param name
-	 */
-	Page<UserVO> paging(Pageable pageable, String name);
 
-	Map<Long, UserVO> findMapByIds(Set<Long> ids);
+    /**
+     * 分页查询
+     *
+     * @param pageable 分页
+     * @param name     用户名
+     * @return 用户信息
+     */
+    Page<UserVO> paging(Pageable pageable, String name);
 
-	/**
-	 * 登录
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	AccountProfile login(String username, String password);
+    Map<Long, UserVO> findMapByIds(Set<Long> ids);
 
-	/**
-	 * 登录,用于记住登录时获取用户信息
-	 * @param id
-	 * @return
-	 */
-	AccountProfile findProfile(Long id);
+    /**
+     * 登录
+     *
+     * @param username
+     * @param password
+     * @return
+     */
+    AccountProfile login(String username, String password);
 
-	/**
-	 * 注册
-	 * @param user
-	 */
-	UserVO register(UserVO user);
+    /**
+     * 登录,用于记住登录时获取用户信息
+     *
+     * @param id
+     * @return
+     */
+    AccountProfile findProfile(Long id);
 
-	/**
-	 * 修改用户信息
-	 * @param user
-	 * @return
-	 */
-	@CacheEvict(key = "#user.getId()")
-	AccountProfile update(UserVO user);
+    /**
+     * 注册
+     *
+     * @param user
+     */
+    UserVO register(UserVO user);
 
-	/**
-	 * 修改用户信息
-	 * @param email
-	 * @return
-	 */
-	@CacheEvict(key = "#id")
-	AccountProfile updateEmail(long id, String email);
+    /**
+     * 修改用户信息
+     *
+     * @param user
+     * @return
+     */
+    @CacheEvict(key = "#user.getId()")
+    AccountProfile update(UserVO user);
 
-	/**
-	 * 查询单个用户
-	 * @param userId
-	 * @return
-	 */
-	@Cacheable(key = "#userId")
-	UserVO get(long userId);
+    /**
+     * 修改用户信息
+     *
+     * @param email
+     * @return
+     */
+    @CacheEvict(key = "#id")
+    AccountProfile updateEmail(long id, String email);
 
-	UserVO getByUsername(String username);
+    /**
+     * 查询单个用户
+     *
+     * @param userId
+     * @return
+     */
+    @Cacheable(key = "#userId")
+    UserVO get(long userId);
 
-	UserVO getByEmail(String email);
+    UserVO getByUsername(String username);
 
-	/**
-	 * 修改头像
-	 * @param id
-	 * @param path
-	 * @return
-	 */
-	@CacheEvict(key = "#id")
-	AccountProfile updateAvatar(long id, String path);
+    UserVO getByEmail(String email);
 
-	/**
-	 * 修改密码
-	 * @param id
-	 * @param newPassword
-	 */
-	void updatePassword(long id, String newPassword);
+    /**
+     * 修改头像
+     *
+     * @param id
+     * @param path
+     * @return
+     */
+    @CacheEvict(key = "#id")
+    AccountProfile updateAvatar(long id, String path);
 
-	/**
-	 * 修改密码
-	 * @param id
-	 * @param oldPassword
-	 * @param newPassword
-	 */
-	void updatePassword(long id, String oldPassword, String newPassword);
+    /**
+     * 修改密码
+     *
+     * @param id
+     * @param newPassword
+     */
+    void updatePassword(long id, String newPassword);
 
-	/**
-	 * 修改用户状态
-	 * @param id
-	 * @param status
-	 */
-	void updateStatus(long id, int status);
+    /**
+     * 修改密码
+     *
+     * @param id
+     * @param oldPassword
+     * @param newPassword
+     */
+    void updatePassword(long id, String oldPassword, String newPassword);
 
-	long count();
+    /**
+     * 修改用户状态
+     *
+     * @param id
+     * @param status
+     */
+    void updateStatus(long id, int status);
+
+    long count();
 
 }
