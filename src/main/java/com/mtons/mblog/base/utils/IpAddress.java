@@ -9,7 +9,6 @@ import org.lionsoul.ip2region.DbSearcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
 /**
@@ -25,9 +24,8 @@ public class IpAddress {
     private static DbSearcher searcher = null;
 
     static {
-        String path = "E:\\project\\blog\\src\\main\\resources\\ip2region.db";
         try {
-            searcher = new DbSearcher(new DbConfig(), path);
+            searcher = new DbSearcher(new DbConfig(), "docs/ip2region.db");
         } catch (FileNotFoundException e) {
             if (logger.isErrorEnabled()) {
                 logger.error("IP地址库文件不存在错误", e);
@@ -74,10 +72,11 @@ public class IpAddress {
      * @return
      */
     public static String queryAddress(String ip) {
+        logger.info("IP：{}", ip);
         if (searcher != null) {
             try {
                 return format(searcher.memorySearch(ip).getRegion());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 if (logger.isErrorEnabled()) {
                     logger.error("IP地址查询错误", e);
                 }
