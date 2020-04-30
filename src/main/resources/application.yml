@@ -7,6 +7,9 @@ server:
         buffer-size: 1024
         directBuffers: true
 spring:
+    output:
+        ansi:
+            enabled: always
     jpa:
         show-sql: true
     profiles:
@@ -60,10 +63,12 @@ shiro:
         cookie:
             maxAge: 604800
 logging:
+    file: E:/blog/blog.log
     level:
         org.springframework: INFO
         org.hibernate: INFO
-
+    pattern:
+        dateformat: yyyy-MM-dd HH:mm:ss.SSS
 # site.options.theme: [default|classic]
 site:
     version: 3.5.0

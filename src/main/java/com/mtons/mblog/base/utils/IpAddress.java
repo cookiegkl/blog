@@ -72,7 +72,6 @@ public class IpAddress {
      * @return
      */
     public static String queryAddress(String ip) {
-        logger.info("IP：{}", ip);
         if (searcher != null) {
             try {
                 return format(searcher.memorySearch(ip).getRegion());

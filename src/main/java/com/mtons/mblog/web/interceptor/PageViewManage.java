@@ -113,6 +113,7 @@ public class PageViewManage implements InitializingBean {
             }
             pv.setDeviceType(accessInfo.getDeviceType());
         }
+        LOGGER.info("欢迎访问怀念时光，当前用户IP：{}", ipAddress);
         blockingQueue.offer(pv);
     }
 }
